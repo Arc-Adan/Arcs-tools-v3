@@ -139,9 +139,9 @@ class arctools:
 				vcIDs = self.txtVcDict.keys()
 				if not vcID in vcIDs:
 					textchannel = str(memAfter.name + "s-voice-channel")
-					cat = After.channel.category
-					#newChannel = await self.create_txt_channel(memAfter.guild, textchannel, self.refID)
-					newChannel = await guild.create_text_channel(textchannel, category=cat) 
+					#cat = After.channel.category
+					newChannel = await self.create_txt_channel(memAfter.guild, textchannel, self.refID)
+					#newChannel = await guild.create_text_channel(textchannel, category=cat) 
 					tempDict = {After.channel.id: newChannel.id}
 					self.txtVcDict.update(tempDict)
 
