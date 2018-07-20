@@ -342,8 +342,10 @@ class arctools:
 		index = 0
 		if jump == None:
 			jump = 0
-		elif jump > pages:
+		elif int(jump) > pages:
 			jump = pages
+		else:
+			jump = int(jump)
 		jumpedembed = self.embeds[jump]
 		message = await channel.send(embed=jumpedembed)
 		await message.add_reaction('◀')
