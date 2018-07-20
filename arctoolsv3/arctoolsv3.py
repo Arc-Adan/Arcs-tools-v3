@@ -40,6 +40,7 @@ class arctools:
 		self.guild = None
 		self.roles = None
 		self.channels = None
+		self.afkchan = None
 		self.grand = None
 		self.master = None
 		self.diam = None
@@ -97,6 +98,7 @@ class arctools:
 		self.vtoggle = toggled
 		self.guild = ctx.message.guild
 		guild = self.guild
+		self.afkchan = guild.afk_channel
 		self.arc = discord.utils.get(guild.members, name= 'Arc')
 		try:
 			self.mercy = discord.utils.get(guild.roles, id=350065360835444736)
@@ -131,7 +133,7 @@ class arctools:
 		everyone_perms = discord.PermissionOverwrite(read_messages=False)
 		vc_perms = discord.PermissionOverwrite(read_messages=True)
 		#Create or give readable permissions on Voice Channel join 
-		if self.vtoggle and After.channel is not None:
+		if self.vtoggle and After.channel != None:
 			if memBefore.channel != After.channel and After.channel.id != self.autoid:
 				self.channels = memAfter.guild.channels
 				vcID = After.channel.id
@@ -184,7 +186,7 @@ class arctools:
 			notperms = discord.PermissionOverwrite(connect=True)
 			everyone_perms = discord.PermissionOverwrite(connect=False)
 			view_perms = discord.PermissionOverwrite(read_messages=False, connect=False)
-			if not chanAfter == None and isinstance(chanAfter, discord.VoiceChannel):
+			if chanAfter is not None and isinstance(chanAfter, discord.VoiceChannel) and chanAfter != self.afkchan:
 				for role in chanAfter.changed_roles:
 					if role.is_default() == True:
 						self.tick = 1
@@ -342,10 +344,10 @@ class arctools:
 		index = 0
 		if jump == None:
 			jump = 0
-		elif int(jump) > pages:
-			jump = pages
+		elif int(jump) >= pages:
+			jump = pages-1
 		else:
-			jump = int(jump)
+			jump = int(jump-1)
 		jumpedembed = self.embeds[jump]
 		message = await channel.send(embed=jumpedembed)
 		await message.add_reaction('◀')
@@ -359,6 +361,7 @@ class arctools:
 				reaction, r_user = await self.bot.wait_for('reaction_add', timeout=120.0, check=check) #[,] 
 			except asyncio.TimeoutError:
 				timeout = True
+				break
 			if reaction.emoji == '◀':
 				if index > 0:
 					index = index-1
