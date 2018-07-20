@@ -131,7 +131,7 @@ class arctools:
 		everyone_perms = discord.PermissionOverwrite(read_messages=False)
 		vc_perms = discord.PermissionOverwrite(read_messages=True)
 		#Create or give readable permissions on Voice Channel join 
-		if self.vtoggle and After.channel is None:
+		if self.vtoggle and After.channel is not None:
 			if memBefore.channel != After.channel and After.channel.id != self.autoid:
 				self.channels = memAfter.guild.channels
 				vcID = After.channel.id
@@ -139,9 +139,9 @@ class arctools:
 				vcIDs = self.txtVcDict.keys()
 				if not vcID in vcIDs:
 					textchannel = str(memAfter.name + "s-voice-channel")
-					#cat = After.channel.category
-					newChannel = await self.create_txt_channel(memAfter.guild, textchannel, self.refID)
-					#newChannel = await guild.create_text_channel(textchannel, category=cat) 
+					cat = After.channel.category
+					#newChannel = await self.create_txt_channel(memAfter.guild, textchannel, self.refID)
+					newChannel = await guild.create_text_channel(textchannel, category=cat) 
 					tempDict = {After.channel.id: newChannel.id}
 					self.txtVcDict.update(tempDict)
 
