@@ -291,7 +291,7 @@ class arctools:
 
 
 	@commands.command()
-	async def reportall(self, ctx, jump=None):
+	async def reportall(self, ctx, jump: int=None):
 		""" Reports all emoji uses in an embed from least to most used. Can accept a number to jump to that page. """
 		channel = ctx.message.channel
 		emojiList = ctx.message.guild.emojis
