@@ -185,7 +185,7 @@ class arctools:
 		if self.tick == 0:
 			notperms = discord.PermissionOverwrite(connect=True)
 			everyone_perms = discord.PermissionOverwrite(connect=False)
-			view_perms = discord.PermissionOverwrite(read_messages=False, connect=False)
+			view_perms = discord.PermissionOverwrite(send_messages=True)
 			if chanAfter is not None and isinstance(chanAfter, discord.VoiceChannel) and chanAfter != self.afkchan:
 				for role in chanAfter.changed_roles:
 					if role.is_default() == True:
