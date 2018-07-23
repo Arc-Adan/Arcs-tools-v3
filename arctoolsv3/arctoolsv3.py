@@ -158,7 +158,7 @@ class arctools:
 					await newChannel.set_permissions(self.sil, overwrite=everyone_perms)
 					await newChannel.set_permissions(self.bronze, overwrite=everyone_perms)
 					await newChannel.set_permissions(self.Unranked, overwrite=everyone_perms)
-					await newChannel.send(str('Congrats {} on your new room! Feel free to customize the room how you like, just **DO NOT** make the room invisible to users and **DO NOT** touch the everyone permissions. If you have any questions, feel free to DM me.'.format(str(memAfter.mention))))
+					await newChannel.send(str('Congrats {} on your new room! Feel free to customize the room how you like, just **DO NOT** make the room invisible to users. Everyone role cannot speak by default you will need to enable this if you want "everyone" to be able to speak. If you have any questions, feel free to DM me.'.format(str(memAfter.mention))))
 
 				else:
 					textchannel = self.bot.get_channel(self.txtVcDict[vcID])
@@ -180,23 +180,6 @@ class arctools:
 	async def gather(self, ctx):
 		""" Gathers info on the server """
 		self.arc = discord.utils.get(guild.members, name= 'Arc')
-
-	async def on_guild_channel_update(self, chanBefore, chanAfter):
-		if self.tick == 0:
-			notperms = discord.PermissionOverwrite(connect=True)
-			everyone_perms = discord.PermissionOverwrite(connect=False)
-			view_perms = discord.PermissionOverwrite(speak=True)
-			if chanAfter is not None and isinstance(chanAfter, discord.VoiceChannel) and chanAfter != self.afkchan:
-				for role in chanAfter.changed_roles:
-					if role.is_default() == True:
-						self.tick = 1
-						try:
-							await chanAfter.set_permissions(role, overwrite=view_perms)
-						except Exception as e:
-							await self.arc.send(e)
-		else:
-			#asyncio.sleep(3)
-			self.tick = 0
 
 	async def on_guild_channel_create(self, channel):
 		guild = channel.guild
