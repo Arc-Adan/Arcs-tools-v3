@@ -117,7 +117,7 @@ class arctools:
 		await ctx.send("Setting auto text channel creation to " + str(self.vtoggle))
 
 	@commands.command()
-	async def rename(self, ctx, *, chaname: str):
+	async def txtname(self, ctx, *, chaname: str):
 		""" Sets the name of the text and voice channel the user is in if they are in an autoroom """
 		txtIDs = self.txtVcDict.values()
 		if ctx.message.channel.id in txtIDs:
