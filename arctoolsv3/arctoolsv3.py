@@ -167,12 +167,16 @@ class arctools:
 		if self.vtoggle and memBefore.channel is not None:
 			if not memBefore.channel == After.channel and not memBefore.channel.id == self.autoid:
 				vcID = memBefore.channel.id
-				channel = self.bot.get_channel(self.txtVcDict[vcID])
-				if len(memBefore.channel.members) == 0:
-					del self.txtVcDict[vcID]
-					await channel.delete()
+				try:
+					channel = self.bot.get_channel(self.txtVcDict[vcID])
+				except:
+					pass
 				else:
-					await channel.set_permissions(memAfter, overwrite=everyone_perms)
+					if len(memBefore.channel.members) == 0:
+						del self.txtVcDict[vcID]
+						await channel.delete()
+					else:
+						await channel.set_permissions(memAfter, overwrite=everyone_perms)
 
 #Arc Defaults
 
