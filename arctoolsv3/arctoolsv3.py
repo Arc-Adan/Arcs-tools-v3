@@ -162,7 +162,7 @@ class arctools:
 
 				else:
 					textchannel = self.bot.get_channel(self.txtVcDict[vcID])
-					await newchannel.set_permissions(memAfter, overwrite=vc_perms)
+					await textchannel.set_permissions(memAfter, overwrite=vc_perms)
 		#Delete or remove readable permissions on Voice Channel Leave
 		if self.vtoggle and memBefore.channel is not None:
 			if not memBefore.channel == After.channel and not memBefore.channel.id == self.autoid:
