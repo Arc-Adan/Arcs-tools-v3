@@ -163,7 +163,7 @@ class arctools:
 				else:
 					if self.mods not in memAfter.roles:
 						textchannel = self.bot.get_channel(self.txtVcDict[vcID])
-						try:*
+						try:
 							await textchannel.set_permissions(memAfter, overwrite=vc_perms)
 						except Exception as e:
 							await self.arc.send('Error in perm edit \n {}'.format(str(e)))
