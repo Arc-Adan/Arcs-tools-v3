@@ -161,16 +161,20 @@ class arctools:
 					await newChannel.send(str('Congrats {} on your new room! Feel free to customize the room how you like, just **DO NOT** make the room invisible to users. Everyone role cannot speak by default you will need to enable this if you want "everyone" to be able to speak. If you have any questions, feel free to DM me.'.format(str(memAfter.mention))))
 
 				else:
-					textchannel = self.bot.get_channel(self.txtVcDict[vcID])
-					await textchannel.set_permissions(memAfter, overwrite=vc_perms)
+					if self.mods not in memAfter.roles:
+						textchannel = self.bot.get_channel(self.txtVcDict[vcID])
+						try:*
+							await textchannel.set_permissions(memAfter, overwrite=vc_perms)
+						except Exception as e:
+							await self.arc.send('Error in perm edit \n {}'.format(str(e)))
 		#Delete or remove readable permissions on Voice Channel Leave
 		if self.vtoggle and memBefore.channel is not None:
-			if not memBefore.channel == After.channel and not memBefore.channel.id == self.autoid:
+			if memBefore.channel != After.channel and memBefore.channel.id != self.autoid:
 				vcID = memBefore.channel.id
 				try:
 					channel = self.bot.get_channel(self.txtVcDict[vcID])
-				except:
-					pass
+				except Exception as e:
+					await self.arc.send("Error in channel delete {}".format(str(e)))
 				else:
 					if len(memBefore.channel.members) == 0:
 						del self.txtVcDict[vcID]
