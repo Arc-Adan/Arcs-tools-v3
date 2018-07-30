@@ -92,7 +92,7 @@ class arctools:
 		return discord.Channel(guild=guild, **data)
 
 	@commands.command()
-	@checks.admin() 
+	@checks.mod() 
 	async def autotext(self, ctx, toggled: bool):
 		""" Toggles autotext to true or false. This exists to catch guild data without complicating things. """
 		self.vtoggle = toggled
